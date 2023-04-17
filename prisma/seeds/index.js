@@ -10,10 +10,8 @@ async function main() {
   // Users
   await Promise.all(
     Users.map(async (user) =>
-      prisma.user.upsert({
-        where: { id: user.id },
-        update: {},
-        create: user,
+      prisma.user.create({
+        data: user,
       })
     )
   );
@@ -21,10 +19,8 @@ async function main() {
   // Tags
   await Promise.all(
     Tags.map(async (tag) =>
-      prisma.tag.upsert({
-        where: { name: tag.name },
-        update: {},
-        create: tag,
+      prisma.tag.create({
+        data: tag,
       })
     )
   );
@@ -32,10 +28,8 @@ async function main() {
   // Topics
   await Promise.all(
     Topics.map(async (topic) =>
-      prisma.topic.upsert({
-        where: { id: topic.id },
-        update: {},
-        create: topic,
+      prisma.topic.create({
+        data: topic,
       })
     )
   );
@@ -43,10 +37,8 @@ async function main() {
   // Cards
   await Promise.all(
     Cards.map(async (card) =>
-      prisma.card.upsert({
-        where: { id: card.id },
-        update: {},
-        create: card,
+      prisma.card.create({
+        data: card,
       })
     )
   );
