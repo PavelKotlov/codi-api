@@ -2,16 +2,18 @@ const express = require('express');
 const App = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const methodOverride = require('method-override');
+const helmet = require("helmet");
+const cors  = require("cors");
 const PORT = 8080;
 
 // express Configuration
+App.use(cors());
+App.use(helmet());
 App.use(morgan('dev'));
+
 App.use(bodyParser.urlencoded({ extended: false }));
 App.use(bodyParser.json());
-
 App.use(express.static('public'));
-App.use(methodOverride('_method'));
 
 const topicsRoutes = require('./routes/topics');
 const cardsRoutes = require('./routes/cards');
