@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "orderByNulls"]
 }
 
 datasource db {
@@ -67,7 +68,7 @@ enum Status {
 
 enum CardType {
   CONCEPT
-  CHALLANGE
+  CHALLENGE
 }
 
 enum ResponseType {
