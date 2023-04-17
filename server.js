@@ -11,8 +11,7 @@ App.use(bodyParser.urlencoded({ extended: false }));
 App.use(bodyParser.json());
 
 App.use(express.static('public'));
-App.use(methodOverride('_method'))
-
+App.use(methodOverride('_method'));
 
 const topicsRoutes = require('./routes/topics');
 const cardsRoutes = require('./routes/cards');
@@ -21,19 +20,23 @@ const loginRoutes = require('./routes/login');
 const logoutRoutes = require('./routes/logout');
 const signupRoutes = require('./routes/signup');
 
-app.use('/topics', topicsRoutes);
-app.use('/topics/:id/cards', cardsRoutes);
-app.use('/users', usersRoutes);
-app.use('/login', loginRoutes);
-app.use('/logout', logoutRoutes);
-app.use('/signup', signupRoutes);
+App.use('/topics', topicsRoutes);
+App.use('/topics/:id/cards', cardsRoutes);
+App.use('/users', usersRoutes);
+App.use('/login', loginRoutes);
+App.use('/logout', logoutRoutes);
+App.use('/signup', signupRoutes);
 
 // Sample GET route
-App.get('/api/data', (req, res) => res.json({
-  message: "Seems to work!",
-}));
+App.get('/api/data', (req, res) =>
+  res.json({
+    message: 'Seems to work!',
+  })
+);
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`express seems to be listening on port ${PORT} so that's pretty good 👍`);
+  console.log(
+    `express seems to be listening on port ${PORT} so that's pretty good 👍`
+  );
 });
