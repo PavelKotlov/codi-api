@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id     String  @id @default(uuid())
+  email  String  @unique
+  topics Topic[]
+}
+
+model Topic {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  max_cards  Int
+  image_url  String?
+  cards      Card[]
+}
+
+model Card {
+  id          String    @id @default(uuid())
+  topic       Topic     @relation(fields: [topicId], references: [id])
+  topicId     String
+  front       String
+  back        String
+  ease_factor Float?
+  interval    Int?
+  due_at      DateTime?
+  status      Status    @default(NEW)
+  type        CardType
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  reviews     Review[]
+  tags        Tag[]
+}
+
+model Review {
+  id           String       @id @default(uuid())
+  card         Card         @relation(fields: [cardId], references: [id])
+  cardId       String
+  reponse_type ResponseType
+  reviewd_at   DateTime     @default(now())
+}
+
+model Tag {
+  id   String @id @default(uuid())
+  name String @unique
+  card Card[]
+}
+
+enum Status {
+  NEW
+  LEARNING
+  GRADUATED
+}
+
+enum CardType {
+  CONCEPT
+  CHALLANGE
+}
+
+enum ResponseType {
+  EASY
+  GOOD
+  HARD
+  AGAIN
+}
