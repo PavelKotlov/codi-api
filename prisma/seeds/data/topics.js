@@ -52,4 +52,12 @@ module.exports = [
     updated_at,
     userId,
   },
+  {
+    id: '5760c81c-dd73-11ed-b5ea-0242ac120002',
+    name: 'Data Structures & Algorithms',
+    max_cards,
+    created_at,
+    updated_at,
+    userId,
+  },
 ];
