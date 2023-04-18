@@ -22,12 +22,12 @@ const loginRoutes = require('./routes/login');
 const logoutRoutes = require('./routes/logout');
 const signupRoutes = require('./routes/signup');
 
-App.use('/topics', topicsRoutes);
-App.use('/topics', cardsRoutes);
-App.use('/users', usersRoutes);
-App.use('/login', loginRoutes);
-App.use('/logout', logoutRoutes);
-App.use('/signup', signupRoutes);
+App.use('/api/topics', topicsRoutes);
+App.use('/api/topics', cardsRoutes);
+App.use('/api/users', usersRoutes);
+App.use('/api/login', loginRoutes);
+App.use('/api/logout', logoutRoutes);
+App.use('/api/signup', signupRoutes);
 
 // Sample GET route
 App.get('/api/data', (req, res) =>
