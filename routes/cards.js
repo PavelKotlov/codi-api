@@ -146,7 +146,7 @@ router.put("/:id/cards", async (req, res) => {
 });
 
 /* edit card */
-router.patch("/:id/cards/:id", async (req, res) => {
+router.patch("/:id/cards/:card_id", async (req, res) => {
   const { front, back, tags, review } = req.body;
 
   const main = async () => {
