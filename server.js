@@ -23,7 +23,7 @@ const logoutRoutes = require('./routes/logout');
 const signupRoutes = require('./routes/signup');
 
 App.use('/topics', topicsRoutes);
-App.use('/topics/:id/cards', cardsRoutes);
+App.use('/topics', cardsRoutes);
 App.use('/users', usersRoutes);
 App.use('/login', loginRoutes);
 App.use('/logout', logoutRoutes);

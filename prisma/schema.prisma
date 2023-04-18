@@ -19,7 +19,7 @@ model User {
 
 model Topic {
   id         String   @id @default(uuid())
-  user       User     @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   name       String
   created_at DateTime @default(now())
@@ -31,7 +31,7 @@ model Topic {
 
 model Card {
   id          String    @id @default(uuid())
-  topic       Topic     @relation(fields: [topicId], references: [id])
+  topic       Topic?     @relation(fields: [topicId], references: [id], onDelete: Cascade)
   topicId     String
   front       String
   back        String
@@ -48,7 +48,7 @@ model Card {
 
 model Review {
   id           String       @id @default(uuid())
-  card         Card         @relation(fields: [cardId], references: [id])
+  card         Card?         @relation(fields: [cardId], references: [id], onDelete: Cascade)
   cardId       String
   reponse_type ResponseType
   reviewd_at   DateTime     @default(now())
