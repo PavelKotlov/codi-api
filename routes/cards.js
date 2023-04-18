@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
+const generateFlashcards = require('../helpers/openai');
 const prisma = new PrismaClient();
 
 // Start a study session (quiz)
