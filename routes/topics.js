@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-
+//TODO: ONE PERSON AT A TIME ! Match router pattern with Juliana's 
 router.get('/:id', async (req, res) => {
   const topic = await prisma.topic.findUnique({
     where: { id: req.params.id },
