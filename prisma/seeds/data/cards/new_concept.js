@@ -411,22 +411,6 @@ module.exports = [
     topicId: 'c4644dde-dce8-11ed-afa1-0242ac120002',
   },
   {
-    front: ' ',
-    back: ` `,
-    tags: {
-      connect: [
-        {
-          name: 'db basics',
-        },
-      ],
-    },
-    type,
-    topicId,
-    created_at,
-    updated_at,
-    topicId: 'c4644dde-dce8-11ed-afa1-0242ac120002',
-  },
-  {
     front: 'What is ACID?',
     back: `ACID stands for Atomicity, Consistency, Isolation, and Durability. It is a set of properties that guarantee reliable processing of database transactions. Atomicity ensures that a transaction is treated as a single unit of work, and is either fully completed or fully rolled back in case of failure. Consistency ensures that a transaction leaves the database in a valid state. Isolation ensures that each transaction is executed independently of other transactions, without interference or inconsistency. Durability ensures that once a transaction is committed, its changes are permanent and cannot be lost or undone. ACID compliance is a critical requirement for mission-critical database systems, such as those used in financial or healthcare applications. `,
     tags: {
