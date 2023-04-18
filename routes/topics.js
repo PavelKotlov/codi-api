@@ -42,4 +42,25 @@ router.post('/', (req, res) => {
   });
 });
 
+/* update topic */
+router.patch('/:id', async (req, res) => {
+  const { name, image_url, max_cards } = req.body;
+
+  try {
+    const updatedTopic = await prisma.topic.update({
+      where: { id: req.params.id },
+      data: {
+        name,
+        image_url,
+        max_cards
+      },
+    });
+    res.status(200).json(updatedTopic);
+
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json('Internal server error');
+  }
+});
+
 module.exports = router;
