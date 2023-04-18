@@ -18,6 +18,17 @@ const tags = [
   'classes',
   'events',
   'frontend js',
+  'event handlers',
+  'db basics',
+  'normalization',
+  'nosql',
+  'joins',
+  'queries',
+  'linear ds',
+  'hash tables',
+  'trees',
+  'graphs',
+  'algorithms',
 ];
 module.exports = tags.map((e) => {
   return { name: e };
