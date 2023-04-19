@@ -3,18 +3,20 @@ const prisma = new PrismaClient();
 
 const Users = require('./data/users');
 const Topics = require('./data/topics');
+const Tags = require('./data/tags');
 const NewConceptCards = require('./data/cards/new_concept');
 const NewChallengeCards = require('./data/cards/new_challenge');
 const LearningConceptCards = require('./data/cards/learning_concept');
 const GraduatedConceptCards = require('./data/cards/graduated_concepts');
+const dummyCard = require('./data/cards/dummyCard');
+const DummyReviews = require('./data/cards/dummyReviewsForHeatMap');
 const Cards = [
+  ...dummyCard,
   ...NewConceptCards,
   ...NewChallengeCards,
   ...LearningConceptCards,
   ...GraduatedConceptCards,
 ];
-
-const Tags = require('./data/tags');
 
 async function main() {
   // Users
@@ -50,6 +52,15 @@ async function main() {
     Cards.map(async (card) =>
       prisma.card.create({
         data: card,
+      })
+    )
+  );
+
+  //Dummy reviews
+  await Promise.all(
+    DummyReviews.map(async (review) =>
+      prisma.review.create({
+        data: review,
       })
     )
   );
