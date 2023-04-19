@@ -20,5 +20,6 @@ module.exports = [
     updated_at,
     status: 'GRADUATED',
     interval: 1000,
+    ease_factor: 2.5,
   },
 ];
