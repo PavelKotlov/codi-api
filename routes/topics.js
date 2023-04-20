@@ -1,13 +1,46 @@
 const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
+const {
+  getTotalCards,
+  getNewCards,
+  getLearningCards,
+  getMatureCards,
+  getGraduatedCards,
+  getReviewsByDate,
+  getCardsCountGroupedByEaseFactor,
+} = require('../db/stats');
 const prisma = new PrismaClient();
-//TODO: ONE PERSON AT A TIME ! Match router pattern with Juliana's 
+
+//TODO: ONE PERSON AT A TIME ! Match router pattern with Juliana's
 router.get('/:id', async (req, res) => {
   const topic = await prisma.topic.findUnique({
     where: { id: req.params.id },
   });
   res.json(topic);
+});
+
+//TODO: Refactor
+router.get('/:id/stats', async (req, res) => {
+  const total = await getTotalCards(req.params.id);
+  const newCards = await getNewCards(req.params.id);
+  const learning = await getLearningCards(req.params.id);
+  const mature = await getMatureCards(req.params.id);
+  const graduated = await getGraduatedCards(req.params.id);
+  const reviews = await getReviewsByDate(req.params.id);
+  const ease = await getCardsCountGroupedByEaseFactor(req.params.id);
+  const result = {
+    cardsStats: {
+      total,
+      new: newCards,
+      learning,
+      graduated,
+      mature,
+    },
+    ease,
+    reviews,
+  };
+  res.json(result);
 });
 
 router.delete('/:id', async (req, res) => {
@@ -52,11 +85,10 @@ router.patch('/:id', async (req, res) => {
       data: {
         name,
         image_url,
-        max_cards
+        max_cards,
       },
     });
     res.status(200).json(updatedTopic);
-
   } catch (e) {
     console.log(e.message);
     res.status(500).json('Internal server error');
