@@ -149,7 +149,7 @@ router.put("/:id/cards", async (req, res) => {
 
 /* edit card */
 router.patch("/:id/cards/:card_id", async (req, res) => {
-  const { front, back, tags, review } = req.body;
+  const { front, back, tags, review, status, ease_factor, interval, due_at } = req.body;
 
   const main = async () => {
     try {
@@ -177,8 +177,8 @@ router.patch("/:id/cards/:card_id", async (req, res) => {
           data: {
             reviews: {
               create: {
-                response_type: review.response,
-                reviewed_at: review.date,
+                reponse_type: review.response,
+                reviewd_at: review.date,
               },
             },
             status,
