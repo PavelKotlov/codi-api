@@ -20,7 +20,6 @@ router.get('/:id', async (req, res) => {
   res.json(topic);
 });
 
-//TODO: Refactor
 router.get('/:id/stats', async (req, res) => {
   const total = await getTotalCards(req.params.id);
   const newCards = await getNewCards(req.params.id);
@@ -29,7 +28,13 @@ router.get('/:id/stats', async (req, res) => {
   const graduated = await getGraduatedCards(req.params.id);
   const reviews = await getReviewsByDate(req.params.id);
   const ease = await getCardsCountGroupedByEaseFactor(req.params.id);
+  const topic = await prisma.topic.findUnique({
+    where: {
+      id: req.params.id,
+    },
+  });
   const result = {
+    topic,
     cardsStats: {
       total,
       new: newCards,
@@ -51,16 +56,15 @@ router.delete('/:id', async (req, res) => {
 });
 
 //TODO: change userId to logged in user or see how will front end send it
-router.get('/', (req, res) => {
-  prisma.topic
-    .findMany({
-      where: {
-        userId: 'f1bdf45e-1b1c-11ec-9621-0242ac130002',
-      },
-    })
-    .then((data) => {
-      res.json(data);
-    });
+router.get('/', async (req, res) => {
+  const topics = await prisma.topic.findMany({
+    where: {
+      userId: 'f1bdf45e-1b1c-11ec-9621-0242ac130002',
+    },
+    orderBy: [{ created_at: 'desc' }],
+  });
+
+  res.json(topics);
 });
 
 router.post('/', (req, res) => {
