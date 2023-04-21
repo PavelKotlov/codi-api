@@ -1,4 +1,5 @@
 const created_at = new Date('Sep 21 2021 16:16:50 GMT-0400');
+const created_at_js = new Date('Sep 21 2021 18:16:50 GMT-0400');
 const updated_at = new Date('Sep 21 2021 16:16:50 GMT-0400');
 const userId = 'f1bdf45e-1b1c-11ec-9621-0242ac130002';
 const max_cards = 25;
@@ -8,7 +9,7 @@ module.exports = [
     id: '8e3399e6-1d94-11ec-9621-0242ac130002',
     name: 'JavaScript',
     max_cards,
-    created_at,
+    created_at: created_at_js,
     updated_at,
     userId,
     image_url: 'https://i.ibb.co/4PqwXFr/icon-02.png',
