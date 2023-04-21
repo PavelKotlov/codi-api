@@ -32,7 +32,6 @@ router.get('/:id/cards/quiz', async (req, res) => {
   });
 
   const result = {
-    topic,
     cards,
   };
 
@@ -60,13 +59,8 @@ router.get('/:id/cards', async (req, res) => {
       topicId: req.params.id,
     },
   });
-  const topic = await prisma.topic.findUnique({
-    where: {
-      id: req.params.id,
-    },
-  });
+
   const result = {
-    topic,
     cards,
   };
   res.json(result);
