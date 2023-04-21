@@ -73,8 +73,7 @@ router.get('/:id/cards', async (req, res) => {
 });
 /* add card */
 router.put('/:id/cards', async (req, res) => {
-  const { auto } = req.query;
-  const { front, back, type, tags, note } = req.body;
+  const { front, back, type, tags, note, auto } = req.body;
 
   const main = async () => {
     try {
