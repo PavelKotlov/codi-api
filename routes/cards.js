@@ -55,6 +55,7 @@ router.delete("/:id/cards/:card_id", async (req, res) => {
 // Browse Cards
 router.get("/:id/cards", async (req, res) => {
   const response = await prisma.card.findMany({
+    orderBy: [{ created_at: "desc" }],
     where: {
       topicId: req.params.id,
     },

@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const {
   getTotalCards,
   getNewCards,
@@ -9,18 +9,18 @@ const {
   getGraduatedCards,
   getReviewsByDate,
   getCardsCountGroupedByEaseFactor,
-} = require('../db/stats');
+} = require("../db/stats");
 const prisma = new PrismaClient();
 
 //TODO: ONE PERSON AT A TIME ! Match router pattern with Juliana's
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   const topic = await prisma.topic.findUnique({
     where: { id: req.params.id },
   });
   res.json(topic);
 });
 
-router.get('/:id/stats', async (req, res) => {
+router.get("/:id/stats", async (req, res) => {
   const total = await getTotalCards(req.params.id);
   const newCards = await getNewCards(req.params.id);
   const learning = await getLearningCards(req.params.id);
@@ -48,7 +48,7 @@ router.get('/:id/stats', async (req, res) => {
   res.json(result);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const topic = await prisma.topic.delete({
     where: { id: req.params.id },
   });
@@ -56,31 +56,30 @@ router.delete('/:id', async (req, res) => {
 });
 
 //TODO: change userId to logged in user or see how will front end send it
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   const topics = await prisma.topic.findMany({
     where: {
-      userId: 'f1bdf45e-1b1c-11ec-9621-0242ac130002',
+      userId: "f1bdf45e-1b1c-11ec-9621-0242ac130002",
     },
-    orderBy: [{ created_at: 'desc' }],
+    orderBy: [{ created_at: "desc" }],
   });
 
   res.json(topics);
 });
 
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   const body = req.body;
   const data = {
     ...body,
-    created_at: new Date(body.created_at),
-    updated_at: new Date(body.updated_at),
   };
-  prisma.topic.create({ data }).then(() => {
-    res.status(201).json({ message: 'Created Successfully' });
+
+  prisma.topic.create({ data }).then((topic) => {
+    res.status(201).json(topic);
   });
 });
 
 /* update topic */
-router.patch('/:id', async (req, res) => {
+router.patch("/:id", async (req, res) => {
   const { name, image_url, max_cards } = req.body;
 
   try {
@@ -95,7 +94,7 @@ router.patch('/:id', async (req, res) => {
     res.status(200).json(updatedTopic);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json('Internal server error');
+    res.status(500).json("Internal server error");
   }
 });
 
