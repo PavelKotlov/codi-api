@@ -2,8 +2,8 @@ const express = require('express');
 const App = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const helmet = require("helmet");
-const cors  = require("cors");
+const helmet = require('helmet');
+const cors = require('cors');
 const PORT = 8080;
 
 // express Configuration
@@ -17,17 +17,11 @@ App.use(express.static('public'));
 
 const topicsRoutes = require('./routes/topics');
 const cardsRoutes = require('./routes/cards');
-const usersRoutes = require('./routes/users');
-const loginRoutes = require('./routes/login');
-const logoutRoutes = require('./routes/logout');
-const signupRoutes = require('./routes/signup');
+const userRoutes = require('./routes/user');
 
 App.use('/api/topics', topicsRoutes);
 App.use('/api/topics', cardsRoutes);
-App.use('/api/users', usersRoutes);
-App.use('/api/login', loginRoutes);
-App.use('/api/logout', logoutRoutes);
-App.use('/api/signup', signupRoutes);
+App.use('/api/user', userRoutes);
 
 // Sample GET route
 App.get('/api/data', (req, res) =>
