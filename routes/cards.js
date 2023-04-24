@@ -3,12 +3,14 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const generateFlashcards = require('../helpers/openai');
 const prisma = new PrismaClient();
+const { checkJwt, isAuthorized } = require('../helpers/auth');
 
 //TODO: ONE PERSON AT A TIME ! Match router pattern with Juliana's
 
 // Start a study session (quiz)
 // Give priority to cards due today , then older cards, then learning then new
 // Limit to the max_cards in the topic
+
 router.get('/:id/cards/quiz', checkJwt, async (req, res) => {
   const topic = isAuthorized(req.params.id, req.auth.payload.sub);
 
