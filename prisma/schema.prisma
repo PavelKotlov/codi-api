@@ -13,7 +13,6 @@ datasource db {
 
 model User {
   id     String  @id @default(uuid())
-  email  String  @unique
   topics Topic[]
 }
 
@@ -31,7 +30,7 @@ model Topic {
 
 model Card {
   id          String    @id @default(uuid())
-  topic       Topic?     @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topic       Topic?    @relation(fields: [topicId], references: [id], onDelete: Cascade)
   topicId     String
   front       String
   back        String
@@ -48,7 +47,7 @@ model Card {
 
 model Review {
   id           String       @id @default(uuid())
-  card         Card?         @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  card         Card?        @relation(fields: [cardId], references: [id], onDelete: Cascade)
   cardId       String
   reponse_type ResponseType
   reviewd_at   DateTime     @default(now())
