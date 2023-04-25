@@ -1,18 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const { checkJwt } = require("../helpers/auth");
+const { checkJwt } = require('../helpers/auth');
 
-router.get("/authorized", checkJwt, async (req, res) => {
-  console.log("YOu GOT IT", req.auth.payload.sub);
+router.get('/authorized', checkJwt, async (req, res) => {
+  console.log('YOu GOT IT', req.auth.payload.sub);
 
   const user = await prisma.user.findUnique({
     where: {
       id: req.auth.payload.sub,
     },
   });
-
   if (user) {
     res.status(200);
   } else {
@@ -23,6 +22,8 @@ router.get("/authorized", checkJwt, async (req, res) => {
     });
     res.status(201);
   }
+
+  console.log(res);
 });
 
 module.exports = router;
