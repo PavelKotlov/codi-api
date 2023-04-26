@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // express Configuration
 app.use(cors());
@@ -23,7 +23,7 @@ app.use("/api/topics", topicsRoutes);
 app.use("/api/topics", cardsRoutes);
 app.use("/api/user", userRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   // eslint-disable-next-line no-console
   console.log(
     `express seems to be listening on port ${PORT} so that's pretty good 👍`
