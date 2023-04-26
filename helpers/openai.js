@@ -9,10 +9,21 @@ const generateFlashcards = async (type, text) => {
   let content = "";
 
   if (type === "CONCEPT") {
-    content = `Generate flashcards (json format) (question and answer) of concepts from this note: ${text}`;
+    content =
+    `Generate an array of objects (json format) that each object consists of two keys: first key is named question, and the second one is named answer.  This array will be used as flashcards (question and answer) of concepts. Generate the array based on this note: ${text}`
   }
+  
   if (type === "CHALLENGE") {
-    content = `Create one flashcard in json format (Mandatory) with two keys. Key 1 will be question,  which is a coding exercise, and Key 2 will be answer which will be the solution to the coding exercise created based on this note: ${text}`;
+    content = 
+    `Can you generate a flashcard for me in the following format?
+
+    The flashcard should be a JSON object with two keys:
+    
+    1. "question" which will contain a coding exercise related to the concept in the note.
+    2. "answer" which will contain the implementation of the coding exercise.
+    Please ensure that the object is easily parsable into JSON format and return only the object.
+    
+    Here is the note: ${text}`
   }
 
   const completion = await openai.createChatCompletion({
