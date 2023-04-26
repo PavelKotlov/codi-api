@@ -8,7 +8,7 @@ const createDummyReviewsForHeatMap = function () {
   const dummyReviews = [];
   const days = [...Array(150).keys()];
   days.forEach((day) => {
-    const reviewsForDay = [...Array(getRandomInt(26)).keys()];
+    const reviewsForDay = [...Array(getRandomInt(10)).keys()];
     reviewsForDay.forEach((e) => {
       const review = {
         reponse_type: "GOOD",
