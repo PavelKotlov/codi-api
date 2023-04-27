@@ -17,14 +17,11 @@ app.use(express.static("public"));
 
 const topicsRoutes = require("./routes/topics");
 const cardsRoutes = require("./routes/cards");
-const userRoutes = require("./routes/user");
 
 app.use("/api/topics", topicsRoutes);
 app.use("/api/topics", cardsRoutes);
-app.use("/api/user", userRoutes);
 
 app.listen(PORT, "0.0.0.0", () => {
-  // eslint-disable-next-line no-console
   console.log(
     `express seems to be listening on port ${PORT} so that's pretty good 👍`
   );

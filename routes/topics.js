@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const {
   getTotalCards,
   getNewCards,
@@ -9,29 +9,24 @@ const {
   getGraduatedCards,
   getReviewsByDate,
   getCardsCountGroupedByEaseFactor,
-} = require('../db/stats');
+} = require("../db/stats");
 const prisma = new PrismaClient();
 
-const { checkJwt, isAuthorized } = require('../helpers/auth');
+const { checkJwt, isAuthorized } = require("../helpers/auth");
 
-//TODO: ONE PERSON AT A TIME ! Match router pattern with Juliana's
-
-//Get one topic by id
-router.get('/:id', checkJwt, async (req, res) => {
+router.get("/:id", checkJwt, async (req, res) => {
   const topic = await isAuthorized(req.params.id, req.auth.payload.sub);
   if (!topic) {
-    res.status(401).json('Unauthorized');
+    res.status(401).json("Unauthorized");
     return;
   }
   res.json(topic);
 });
 
-// Get one topic stats
-router.get('/:id/stats', checkJwt, async (req, res) => {
+router.get("/:id/stats", checkJwt, async (req, res) => {
   const topic = await isAuthorized(req.params.id, req.auth.payload.sub);
-  console.log(topic);
   if (!topic) {
-    res.status(401).json('Unauthorized');
+    res.status(401).json("Unauthorized");
     return;
   }
 
@@ -58,12 +53,11 @@ router.get('/:id/stats', checkJwt, async (req, res) => {
   res.json(result);
 });
 
-//Delete a topic
-router.delete('/:id', checkJwt, async (req, res) => {
+router.delete("/:id", checkJwt, async (req, res) => {
   const topic = await isAuthorized(req.params.id, req.auth.payload.sub);
 
   if (!topic) {
-    res.status(401).json('Unauthorized');
+    res.status(401).json("Unauthorized");
     return;
   }
 
@@ -74,21 +68,17 @@ router.delete('/:id', checkJwt, async (req, res) => {
   res.json();
 });
 
-//Get All topics for a user
-router.get('/', checkJwt, async (req, res) => {
+router.get("/", checkJwt, async (req, res) => {
   const topics = await prisma.topic.findMany({
     where: {
       userId: req.auth.payload.sub,
     },
-    orderBy: [{ created_at: 'desc' }],
+    orderBy: [{ created_at: "desc" }],
   });
-  console.log(topics);
-  console.log('req.auth.payload.sub', req.auth.payload.sub);
   res.json(topics);
 });
 
-//Create a topic under a user
-router.post('/', checkJwt, async (req, res) => {
+router.post("/", checkJwt, async (req, res) => {
   const userId = req.auth.payload.sub;
 
   let user = await prisma.user.findUnique({ where: { id: userId } });
@@ -107,12 +97,11 @@ router.post('/', checkJwt, async (req, res) => {
   });
 });
 
-/* update topic */
-router.patch('/:id', checkJwt, async (req, res) => {
+router.patch("/:id", checkJwt, async (req, res) => {
   const topic = await isAuthorized(req.params.id, req.auth.payload.sub);
 
   if (!topic) {
-    res.status(401).json('Unauthorized');
+    res.status(401).json("Unauthorized");
     return;
   }
 
@@ -130,7 +119,7 @@ router.patch('/:id', checkJwt, async (req, res) => {
     res.status(200).json(updatedTopic);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json('Internal server error');
+    res.status(500).json("Internal server error");
   }
 });
 
