@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/107829745/234752224-f00359f6-b085-4f2d-bfb2-454614fcb7ee.png">
+</p>
+
 # 🔗 Codi-API
 
 ### Say goodbye to boring memorization - Codi's flashcard-based platform makes learning to code a fun and seamless experience with progress tracking to keep you motivated.
